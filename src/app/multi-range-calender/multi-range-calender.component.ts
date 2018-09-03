@@ -32,9 +32,8 @@ export class MultiRangeCalenderComponent implements OnInit {
       this.lastSelected = undefined;
     } else {
       this.lastSelected = clickEvent.day;
+      this.toggleDay(clickEvent.day);
     }
-
-    this.toggleDay(clickEvent.day);
     
     this.emitDays();
   }

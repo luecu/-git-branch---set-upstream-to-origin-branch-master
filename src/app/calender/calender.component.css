@@ -9,7 +9,7 @@
 }
 
 .title {
-    widht: 100%;
+    width: 100%;
     text-align: center;
     font-weight: bold;
 }
@@ -25,7 +25,7 @@
 }
 
 .selectable:hover {
-    background: lightcoral;
+    background: #CE2A00;
 }
 
 .daysBox {
@@ -33,7 +33,7 @@
 }
 
 .selected {
-    background: red;
+    background: #E8A18F;
 }
 
 .disabled {
