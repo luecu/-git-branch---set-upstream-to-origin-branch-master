@@ -1,3 +1,5 @@
-<p>
-  multi-range-calender works!
-</p>
+<div *ngFor="let month of months">
+  <calender [month]="month" (dayClick)="dayClick($event)"></calender>
+</div>
+
+<button (click)="debug()">Debug</button>
