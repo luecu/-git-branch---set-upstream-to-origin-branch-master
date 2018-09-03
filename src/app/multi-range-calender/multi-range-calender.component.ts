@@ -26,11 +26,12 @@ export class MultiRangeCalenderComponent implements OnInit {
   public dayClick(clickEvent: DayClickEvent) {
     if (clickEvent.event.shiftKey && this.lastSelected) {
       this.selectRange(this.lastSelected, clickEvent.day, this.lastSelected.selected);
-    } else {
-      this.lastSelected = clickEvent.day;
+      this.lastSelected = undefined;
+      return;
     }
 
     this.toggleDay(clickEvent.day);
+    this.lastSelected = clickEvent.day;
   }
 
   private selectRange(day1: Day, day2: Day, selected: boolean = true) {
