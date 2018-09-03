@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'multi-range-calender-app';
+
+  public daysSelect(dates: string[]) {
+    console.log("days selected", dates);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ModuleWithComponentFactories } from '@angular/core';
+import { Component, OnInit, Input, ModuleWithComponentFactories, Output, EventEmitter } from '@angular/core';
 import { Day, Month, DayClickEvent } from './multi-range-calender-types';
 
 import * as moment from 'moment';
@@ -13,6 +13,9 @@ export class MultiRangeCalenderComponent implements OnInit {
 
   @Input("month") startMonth: string;
   @Input("nrOfCalenders") nrOfCalenders: number = 1;
+  @Output("daysSelect") daysSelect: EventEmitter<string[]> = new EventEmitter();
+
+  private readonly EXPORT_FORMAT: string = 'DD-MM-YYYY';
 
   private days: Day[] = [];
   private months: Month[] = [];
@@ -27,11 +30,24 @@ export class MultiRangeCalenderComponent implements OnInit {
     if (clickEvent.event.shiftKey && this.lastSelected) {
       this.selectRange(this.lastSelected, clickEvent.day, this.lastSelected.selected);
       this.lastSelected = undefined;
-      return;
+    } else {
+      this.lastSelected = clickEvent.day;
     }
 
     this.toggleDay(clickEvent.day);
-    this.lastSelected = clickEvent.day;
+    
+    this.emitDays();
+  }
+
+  private emitDays() {
+    let selectedDaysAsString = this.selectedDates().map((date: Moment) => date.format(this.EXPORT_FORMAT))
+    this.daysSelect.emit(selectedDaysAsString);
+  }
+
+  private selectedDates(): Moment[] {
+    return this.days
+      .filter((day: Day) => day.selected)
+      .map((day: Day) => day.date);
   }
 
   private selectRange(day1: Day, day2: Day, selected: boolean = true) {
