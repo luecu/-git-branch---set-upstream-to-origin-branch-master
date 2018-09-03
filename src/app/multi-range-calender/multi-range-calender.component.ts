@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ModuleWithComponentFactories } from '@angular/core';
-import { Day, Month } from './multi-range-calender-types';
+import { Day, Month, DayClickEvent } from './multi-range-calender-types';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';
@@ -17,13 +17,37 @@ export class MultiRangeCalenderComponent implements OnInit {
   private days: Day[] = [];
   private months: Month[] = [];
 
+  private lastSelected: Day;
+
   ngOnInit() {
-    console.log(this.startMonth, this.nrOfCalenders);
     this.initDays();
   }
 
-  public dayClick(day: Day) {
-    day.selected = true;
+  public dayClick(clickEvent: DayClickEvent) {
+    if (clickEvent.event.shiftKey && this.lastSelected) {
+      this.selectRange(this.lastSelected, clickEvent.day, this.lastSelected.selected);
+    } else {
+      this.lastSelected = clickEvent.day;
+    }
+
+    this.toggleDay(clickEvent.day);
+  }
+
+  private selectRange(day1: Day, day2: Day, selected: boolean = true) {
+    this.daysBetween(day1, day2)
+      .forEach((day: Day) => this.selectDay(day, selected));
+  }
+
+  private daysBetween(day1: Day, day2: Day): Day[] {
+    return this.days
+            .filter((day: Day) => moment(day.date).isBetween(day1.date, day2.date, 'day', '[]'))
+  }
+
+  private toggleDay(day: Day) {
+    this.selectDay(day, !day.selected)
+  }
+  private selectDay(day: Day, selected: boolean = true) {
+    day.selected = selected;
   }
 
   private initDays() {
@@ -57,7 +81,6 @@ export class MultiRangeCalenderComponent implements OnInit {
 
     let result: Moment[] = []
     let currentDate = startDay;
-    console.log(startDay, endDay);
     while(currentDate.isSameOrBefore(endDay)) {
       result.push(currentDate);
       currentDate = currentDate.clone().add(1, 'day');
@@ -71,13 +94,10 @@ export class MultiRangeCalenderComponent implements OnInit {
   }
 
   private initDay(date: Moment): Day {
-    return {
-      date: date.toString(),
-      selected: false
-    } as Day
+    return new Day(date, false);
   }
   private initMonth(firstDayOfMonth: Moment): Month {
-    return new Month(this.daysForMonth(firstDayOfMonth));
+    return new Month(firstDayOfMonth.format('MMMM'), this.daysForMonth(firstDayOfMonth));
   }
 
 }

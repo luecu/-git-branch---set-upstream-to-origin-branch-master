@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Month, Day } from '../multi-range-calender/multi-range-calender-types';
+import { Month, Day, DayClickEvent } from '../multi-range-calender/multi-range-calender-types';
 
 
 @Component({
@@ -9,18 +9,26 @@ import { Month, Day } from '../multi-range-calender/multi-range-calender-types';
 })
 export class CalenderComponent implements OnInit {
 
+  public weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+
   @Input("month") month: Month;
-  @Output("dayClick") dayClick: EventEmitter<Day> = new EventEmitter();
+  @Output("dayClick") dayClick: EventEmitter<DayClickEvent> = new EventEmitter();
+
+  public bufferDaysStart: any[];
 
   constructor() { }
 
   ngOnInit() {
     console.log("month", this.month);
+
+    let bufferSizeStart = this.month.firstDay().date.day() - 1;
+    this.bufferDaysStart = new Array(bufferSizeStart).fill(1);
+    
   }
 
-  public dayClicked(day: Day) {
-    console.log("day clicked", day);
-    this.dayClick.emit(day);
+  public dayClicked(day: Day, event: MouseEvent) {
+    event.preventDefault();
+    this.dayClick.emit({day, event} as DayClickEvent);
   }
 
 }

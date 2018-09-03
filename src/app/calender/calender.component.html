@@ -1,4 +1,21 @@
-<div *ngFor="let day of month.days" (click)="dayClicked(day)">
-  {{day.date}} - {{day.selected}}
+<div class="calenderBlock">
+  <h2 class="title">{{month.title}}</h2>
+  <!-- Weekday Titles -->
+  <div class="row">
+    <div *ngFor="let weekday of weekdays" class="day weekday">
+      {{weekday}}
+    </div>
+  </div>
+
+  <!-- Days from last month -->
+  <div class="daysBox">
+    <div *ngFor="let empty of bufferDaysStart" class="day disabled">
+      &nbsp;
+    </div>
+
+    <!-- Days -->
+    <div *ngFor="let day of month.days" (click)="dayClicked(day, $event)" class="day selectable" [ngClass]="{'selected': day.selected}">
+      {{day.label}}
+    </div>
+  </div>
 </div>
----------------------------------

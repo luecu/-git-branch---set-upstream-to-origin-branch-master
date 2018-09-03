@@ -1,0 +1,40 @@
+.calenderBlock {
+    border: 1px solid grey;
+}
+
+.title {
+    widht: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.day {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.selectable:hover {
+    background: lightcoral;
+}
+
+.daysBox {
+    width: 280px;
+}
+
+.selected {
+    background: red;
+}
+
+.disabled {
+    cursor: default;
+}
+
+.weekday {
+    font-weight: bold;
+}
+

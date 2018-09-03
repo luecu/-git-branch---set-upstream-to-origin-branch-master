@@ -1,5 +1,3 @@
-<div *ngFor="let month of months">
-  <calender [month]="month" (dayClick)="dayClick($event)"></calender>
+<div *ngFor="let month of months" style="display: inline-block;">
+  <calender  [month]="month" (dayClick)="dayClick($event)"></calender>
 </div>
-
-<button (click)="debug()">Debug</button>
