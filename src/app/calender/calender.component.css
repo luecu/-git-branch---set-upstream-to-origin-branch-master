@@ -1,5 +1,11 @@
 .calenderBlock {
-    border: 1px solid grey;
+    border: 1px solid grey;    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .title {

@@ -9,21 +9,17 @@ import { Month, Day, DayClickEvent } from '../multi-range-calender/multi-range-c
 })
 export class CalenderComponent implements OnInit {
 
-  public weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
-
   @Input("month") month: Month;
   @Output("dayClick") dayClick: EventEmitter<DayClickEvent> = new EventEmitter();
 
+  public weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
   public bufferDaysStart: any[];
 
   constructor() { }
 
   ngOnInit() {
-    console.log("month", this.month);
-
     let bufferSizeStart = this.month.firstDay().date.day() - 1;
     this.bufferDaysStart = new Array(bufferSizeStart).fill(1);
-    
   }
 
   public dayClicked(day: Day, event: MouseEvent) {

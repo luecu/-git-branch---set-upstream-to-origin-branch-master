@@ -40,6 +40,12 @@ export class MultiRangeCalenderComponent implements OnInit {
   }
 
   private daysBetween(day1: Day, day2: Day): Day[] {
+    return day1.date.isBefore(day2.date) ? 
+      this.daysBetweenOrderSensitive(day1, day2) :
+      this.daysBetweenOrderSensitive(day2, day1)
+  }
+
+  private daysBetweenOrderSensitive(day1: Day, day2: Day): Day[] {
     return this.days
             .filter((day: Day) => moment(day.date).isBetween(day1.date, day2.date, 'day', '[]'))
   }
