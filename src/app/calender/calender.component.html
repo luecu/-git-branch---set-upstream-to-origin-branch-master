@@ -14,7 +14,7 @@
     </div>
 
     <!-- Days -->
-    <div *ngFor="let day of month.days" (click)="dayClicked(day, $event)" class="day selectable" [ngClass]="{'selected': day.selected}">
+    <div *ngFor="let day of month.days" (click)="dayClicked(day, $event)" (mouseover)="dayHovered(day, $event)" class="day selectable" [ngClass]="cssClass(day)">
       {{day.label}}
     </div>
   </div>

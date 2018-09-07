@@ -36,6 +36,14 @@
     background: #E8A18F;
 }
 
+.selected-preview {
+  background-color: #E8CCC9;
+}
+
+.unselected-preview {
+  background-color: #eeeeee;
+}
+
 .disabled {
     cursor: default;
 }
