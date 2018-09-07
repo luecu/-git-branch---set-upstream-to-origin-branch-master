@@ -19,7 +19,7 @@ export class CalenderComponent implements OnInit {
 
   ngOnInit() {
     let bufferSizeStart = this.month.firstDay().date.day() - 1;
-    this.bufferDaysStart = new Array(bufferSizeStart).fill(1);
+    this.bufferDaysStart = bufferSizeStart === -1 ? [] : new Array(bufferSizeStart).fill(1);
   }
 
   public dayClicked(day: Day, event: MouseEvent) {
